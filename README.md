@@ -20,6 +20,13 @@ and passed in as arguments to this script.
 This script then generates(2) a full major.minor.patch version number, using the next unused
 available patch number delivered by the increment.build service.
 
+## Dependencies
+
+Apart from obviously requiering bash or a compatible shell, the script depends on the following that might not be default available on your system, especially if running on a minimal build server or in a container: 
+
+- curl
+- sha1sum
+
 ## Footnotes
 1) If you don't want to use the publicly hosted service,you can choose to run your own copy,
 on premise or on a cloud of choice, as the increment.build project is Open Source under a MIT license
