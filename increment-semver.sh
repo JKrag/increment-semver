@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # The purpose of this script is to generate a continuously increasing SemVer type version number
 # for a project, by leveraging the hosted service http://increment.build.(1)
 # It provides a very good alternative for using "build id" numbers from your CI server as
@@ -53,10 +55,10 @@ VERSIONING_IDENTIFIER="$PROJECT-$PROJECT_VARIANT$MAJOR.$MINOR"
 set -e # Exit on failed commands
 
 echo "Inc string: $VERSIONING_IDENTIFIER"
-increment_build_token=$(echo -n $VERSIONING_IDENTIFIER | sha1sum -t | head -c 40)
+increment_build_token=$(echo -n "$VERSIONING_IDENTIFIER" | sha1sum -t | head -c 40)
 
 echo "Inc token: $increment_build_token"
-patch=$(curl -s https://increment.build/$increment_build_token/get)
+patch=$(curl -s "https://increment.build/$increment_build_token/get")
 
 # Check that returned value is indeed a number. This protects against
 # gibberish or tmp error messages being erroneously used as a version number.
@@ -73,5 +75,5 @@ echo "------------------"
 echo "##vso[task.setvariable variable=tag;isOutput=true]$MAJOR.$MINOR.$patch"
 echo "------------------"
 # echo "Now incrementing patch level version number for future runs"
-future=$(curl -s https://increment.build/$increment_build_token)
+future=$(curl -s "https://increment.build/$increment_build_token")
 echo "Next version will be $MAJOR.$MINOR.$future"
