@@ -58,7 +58,7 @@ echo "Inc string: $VERSIONING_IDENTIFIER"
 increment_build_token=$(echo -n "$VERSIONING_IDENTIFIER" | sha1sum -t | head -c 40)
 
 echo "Inc token: $increment_build_token"
-patch=$(curl -s "https://increment.build/$increment_build_token/get")
+patch=$(curl -s "https://increment.build/$increment_build_token")
 
 # Check that returned value is indeed a number. This protects against
 # gibberish or tmp error messages being erroneously used as a version number.
